@@ -1,8 +1,11 @@
+import { AuthProvider } from "./contexts/auth"
 import { AuthTabs } from "./Pages/AuthTabs"
 
 function App() {
   return (
-    <AuthTabs />
+    <AuthProvider>
+      <AuthTabs />
+    </AuthProvider>
   )
 }
 

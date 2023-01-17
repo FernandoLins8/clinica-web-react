@@ -1,0 +1,85 @@
+import { createContext, useContext, useEffect, useState } from 'react';
+import { api } from '../services/api/api';
+import { authApi } from '../services/api/auth'
+import { usersApi } from '../services/api/users'
+
+const AuthContext = createContext({})
+
+interface Props {
+  children: React.ReactNode;
+}
+
+export const AuthProvider = function({children}: Props) {
+  const [user, setUser] = useState({})
+
+  useEffect(() => {
+    if(localStorage.getItem('@App:name')&&
+      localStorage.getItem('@App:email') &&
+      localStorage.getItem('@App:role') &&
+      localStorage.getItem('@App:token') 
+    ) {
+      setUser({
+        name: localStorage.getItem('@App:name'),
+        email: localStorage.getItem('@App:email'),
+        role: localStorage.getItem('@App:role'),
+        token: localStorage.getItem('@App:token'),
+      })
+      
+      api.defaults.Authorization = `Bearer ${localStorage.getItem('@App:token')}`
+    }
+  }, [])
+
+  async function login(email: string, password: string) {
+    return authApi.login(
+      email,
+      password
+    )
+    .then(res => {
+      const { access_token: token } = res.data
+
+      api.defaults.headers.Authorization = `Bearer ${token}`
+
+      localStorage.setItem('@App:token', token)
+      getUserInfo()
+    })
+  }
+
+  async function logout() {
+    setUser(null)
+    localStorage.removeItem('@App:name')
+    localStorage.removeItem('@App:email')
+    localStorage.removeItem('@App:role')
+    localStorage.removeItem('@App:token')
+  }
+
+  async function getUserInfo() {
+    const res = await usersApi.getInfo()
+    const { name, email, role } = await res.data
+    console.log(name, email, role)
+
+    setUser({
+      name,
+      email,
+      role,
+    })
+
+    if(res.status == 200) {
+      localStorage.setItem('@App:name', name)
+      localStorage.setItem('@App:email', email)
+      localStorage.setItem('@App:role', role)
+    }
+  }
+
+  return (
+    <AuthContext.Provider 
+      value={{ signed: Boolean(user), user, login, logout }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
+}
+
+export function useAuth() {
+  const context = useContext(AuthContext)
+  return context
+}
