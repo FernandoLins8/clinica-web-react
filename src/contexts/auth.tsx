@@ -3,14 +3,33 @@ import { api } from '../services/api/api';
 import { authApi } from '../services/api/auth'
 import { usersApi } from '../services/api/users'
 
-const AuthContext = createContext({})
+type User = {
+  name: string | null
+  email: string | null
+  role: string | null
+  token: string | null
+}
+
+interface AuthContextValue {
+  signed: boolean;
+  user: User | null;
+  login: (email: string, password: string) => Promise<void> | void;
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextValue>({
+  user: null,
+  login: () => {},
+  logout: () => {},
+  signed: false
+})
 
 interface Props {
   children: React.ReactNode;
 }
 
 export const AuthProvider = function({children}: Props) {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     if(localStorage.getItem('@App:name')&&
@@ -55,12 +74,14 @@ export const AuthProvider = function({children}: Props) {
   async function getUserInfo() {
     const res = await usersApi.getInfo()
     const { name, email, role } = await res.data
-    console.log(name, email, role)
+
+    const token = localStorage.getItem('@App:token')
 
     setUser({
       name,
       email,
       role,
+      token
     })
 
     if(res.status == 200) {
