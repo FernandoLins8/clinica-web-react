@@ -82,6 +82,7 @@ export const AuthProvider = function({children}: Props) {
     localStorage.removeItem('@App:email')
     localStorage.removeItem('@App:role')
     localStorage.removeItem('@App:token')
+    navigate('/')
   }
 
   async function getUserInfo() {
