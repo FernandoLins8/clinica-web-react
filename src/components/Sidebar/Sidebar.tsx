@@ -3,9 +3,18 @@ import * as Avatar from '@radix-ui/react-avatar';
 import { SidebarItem } from "./components/SidebarItem";
 import { useState } from "react";
 
-export function Sidebar() {
+interface Props {
+  onTabClick: (tabTitle: string) => void
+}
+
+export function Sidebar({ onTabClick }: Props) {
   const { user, logout } = useAuth()
-  const [activeTab, setActiveTab] = useState('Novo Atendimento')
+  const [activeTab, setActiveTab] = useState(user!.role == 'admin' ? 'Atendimentos' : 'Novo Atendimento')
+
+  function handleActiveTabChange(tabTitle: string) {
+    setActiveTab(tabTitle)
+    onTabClick(tabTitle)
+  }
   
   return (
     <div className="fixed h-screen w-64 bg-slate-200 text-center">
@@ -31,17 +40,17 @@ export function Sidebar() {
           {
             user?.role == "admin" ? (
               <>
-                <SidebarItem href="#" title="Atendimentos" active={activeTab === "Atendimentos"} onClick={() => setActiveTab("Atendimentos")} />
-                <SidebarItem href="#" title="Serviços" active={activeTab === "Serviços"} onClick={() => setActiveTab("Serviços")} />
-                <SidebarItem href="#" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => setActiveTab("Profissionais")} />
-                <SidebarItem href="#" title="Clientes" active={activeTab === "Clientes"} onClick={() => setActiveTab("Clientes")} />
+                <SidebarItem href="#" title="Atendimentos" active={activeTab === "Atendimentos"} onClick={() => handleActiveTabChange("Atendimentos")} />
+                <SidebarItem href="#" title="Serviços" active={activeTab === "Serviços"} onClick={() => handleActiveTabChange("Serviços")} />
+                <SidebarItem href="#" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => handleActiveTabChange("Profissionais")} />
+                <SidebarItem href="#" title="Clientes" active={activeTab === "Clientes"} onClick={() => handleActiveTabChange("Clientes")} />
               </>
             ) : (
               <>
-                <SidebarItem href="#" title="Novo Atendimento" active={activeTab === "Novo Atendimento"} onClick={() => {setActiveTab("Novo Atendimento")}} />
-                <SidebarItem href="#" title="Meus Atendimento" active={activeTab === "Meus Atendimento"} onClick={() => setActiveTab("Meus Atendimento")} />
-                <SidebarItem href="#" title="Serviços" active={activeTab === "Serviços"} onClick={() => setActiveTab("Serviços")} />
-                <SidebarItem href="#" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => setActiveTab("Profissionais")} />
+                <SidebarItem href="#" title="Novo Atendimento" active={activeTab === "Novo Atendimento"} onClick={() => {handleActiveTabChange("Novo Atendimento")}} />
+                <SidebarItem href="#" title="Meus Atendimentos" active={activeTab === "Meus Atendimentos"} onClick={() => handleActiveTabChange("Meus Atendimentos")} />
+                <SidebarItem href="#" title="Serviços" active={activeTab === "Serviços"} onClick={() => handleActiveTabChange("Serviços")} />
+                <SidebarItem href="#" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => handleActiveTabChange("Profissionais")} />
               </>
             )
           }
