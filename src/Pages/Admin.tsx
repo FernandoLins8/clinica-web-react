@@ -1,5 +1,10 @@
+import { Sidebar } from "../components/Sidebar/Sidebar";
+
 export function Admin() {
   return (
-    <h1>Admin</h1>
+    <>
+      <Sidebar />
+      <h1>Admin</h1>
+    </>
   )
 }
