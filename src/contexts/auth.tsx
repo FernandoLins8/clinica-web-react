@@ -34,6 +34,17 @@ export const AuthProvider = function({children}: Props) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(!user) {
+      return
+    }
+    if(user.role == 'admin') {
+      navigate('admin')
+    } else {
+      navigate('home')
+    }
+  }, [user])
+
+  useEffect(() => {
     if(localStorage.getItem('@App:name')&&
       localStorage.getItem('@App:email') &&
       localStorage.getItem('@App:role') &&
@@ -62,12 +73,6 @@ export const AuthProvider = function({children}: Props) {
 
       localStorage.setItem('@App:token', token)
       await getUserInfo()
-
-      if(user?.role == 'admin') {
-        navigate('admin')
-      } else {
-        navigate('home')
-      }
     })
   }
 

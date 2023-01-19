@@ -17,21 +17,10 @@ export function SignIn() {
       email: Yup.string().email('Invalid email address').required('Required'),
       password: Yup.string().required('Required')
     })}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(async () => {
+    onSubmit={async (values, { setSubmitting }) => {
         const { email, password } = values
         await login(email, password)
-
-        if(signed) {
-          if(user?.role == 'admin') {
-            navigate('admin')
-          } else {
-            navigate('home')
-          }
-        }
-        
         setSubmitting(false)
-      }, 400)
     }}
     >
       <Form className="w-full bg-white p-6 shadow-md">
