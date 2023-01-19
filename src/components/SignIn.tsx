@@ -1,7 +1,12 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
+import { useAuth } from '../contexts/auth';
 
 export function SignIn() {  
+  const { login, signed, user, } = useAuth()
+  const navigate = useNavigate()
+  
   return (
     <Formik
     initialValues={{
@@ -13,8 +18,18 @@ export function SignIn() {
       password: Yup.string().required('Required')
     })}
     onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2))
+      setTimeout(async () => {
+        const { email, password } = values
+        await login(email, password)
+
+        if(signed) {
+          if(user?.role == 'admin') {
+            navigate('admin')
+          } else {
+            navigate('home')
+          }
+        }
+        
         setSubmitting(false)
       }, 400)
     }}
