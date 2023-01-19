@@ -4,7 +4,7 @@ import { SidebarItem } from "./components/SidebarItem";
 import { useState } from "react";
 
 export function Sidebar() {
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
   const [activeTab, setActiveTab] = useState('Novo Atendimento')
   
   return (
@@ -20,7 +20,12 @@ export function Sidebar() {
           </Avatar.Root>
 
           <h1 className="text-lg font-medium">{user?.name}</h1>
-          <button className="text-base">Logout</button>
+          <button
+            className="text-base"
+            onClick={logout}
+          >
+            Logout
+          </button>
         </div>
         <nav className="mt-4">
           {
