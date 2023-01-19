@@ -1,8 +1,11 @@
+import { AuthProvider } from "./contexts/auth"
+import { Paths } from "./routes"
+
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <AuthProvider>
+      <Paths />
+    </AuthProvider>
   )
 }
 
