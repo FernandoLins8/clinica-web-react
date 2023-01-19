@@ -18,7 +18,7 @@ export function Admin() {
       <div className="col-span-2 min-h-screen h-full">
         <Sidebar onTabClick={handleTabClick} />
       </div>
-      <div className="col-span-10 pl-16">
+      <div className="col-span-10">
         {currentTab === "Atendimentos" ? <Appointments /> : null}
         {currentTab === "Serviços" ? <Services /> : null}
         {currentTab === "Profissionais" ? <Professionals /> : null}
