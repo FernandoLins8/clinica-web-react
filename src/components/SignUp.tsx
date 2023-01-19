@@ -1,7 +1,13 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
+import { useAuth } from '../contexts/auth';
+import { usersApi } from '../services/api/users';
 
 export function SignUp() {  
+  const { login } = useAuth()
+  const navigate = useNavigate()
+  
   return (
     <Formik
     initialValues={{
@@ -16,11 +22,17 @@ export function SignUp() {
       password: Yup.string().required('Required'),
       passwordConfirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Required'),
     })}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2))
+    onSubmit={async (values, { setSubmitting }) => {
+        let { name, email, password } = values
+        const res = await usersApi.create(name, email, password)
+
+        if(res.status != 201) {
+          alert('Não conseguimos criar sua conta')
+        }
+
+        alert('Usuário criado com sucesso')
+        await login(email, password)
         setSubmitting(false)
-      }, 400)
     }}
     >
       <Form className="bg-white p-6 rounded-lg shadow-md">
