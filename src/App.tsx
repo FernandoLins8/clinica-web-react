@@ -1,10 +1,10 @@
 import { AuthProvider } from "./contexts/auth"
-import { AuthTabs } from "./Pages/AuthTabs"
+import { Paths } from "./routes"
 
 function App() {
   return (
     <AuthProvider>
-      <AuthTabs />
+      <Paths />
     </AuthProvider>
   )
 }

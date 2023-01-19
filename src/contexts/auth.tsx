@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api/api';
 import { authApi } from '../services/api/auth'
 import { usersApi } from '../services/api/users'
@@ -30,6 +31,7 @@ interface Props {
 
 export const AuthProvider = function({children}: Props) {
   const [user, setUser] = useState<User | null>(null)
+  const navigate = useNavigate();
 
   useEffect(() => {
     if(localStorage.getItem('@App:name')&&
@@ -53,13 +55,19 @@ export const AuthProvider = function({children}: Props) {
       email,
       password
     )
-    .then(res => {
+    .then(async res => {
       const { access_token: token } = res.data
 
       api.defaults.headers.Authorization = `Bearer ${token}`
 
       localStorage.setItem('@App:token', token)
-      getUserInfo()
+      await getUserInfo()
+
+      if(user?.role == 'admin') {
+        navigate('admin')
+      } else {
+        navigate('home')
+      }
     })
   }
 
