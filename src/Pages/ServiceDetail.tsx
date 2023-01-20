@@ -63,7 +63,7 @@ export function ServiceDetail() {
         {
           user?.role == 'admin' && (
             <div className="flex justify-center gap-2 grid-cols-2">
-              <button className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg">Editar</button>
+              {/* <button className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg">Editar</button> */}
               <button 
                 onClick={handleDelete}
                 className="block w-24 h-10 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg"
