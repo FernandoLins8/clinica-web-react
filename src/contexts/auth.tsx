@@ -57,7 +57,7 @@ export const AuthProvider = function({children}: Props) {
         token: localStorage.getItem('@App:token'),
       })
       
-      api.defaults.Authorization = `Bearer ${localStorage.getItem('@App:token')}`
+      api.defaults.headers.Authorization = `Bearer ${localStorage.getItem('@App:token')}`
     }
   }, [])
 
