@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar/Sidebar";
+import { useAuth } from "../contexts/auth";
 import { servicesApi } from "../services/api/services";
 
 export interface Service {
@@ -15,6 +16,7 @@ export interface Service {
 export function Services() {
   const [services, setServices] = useState<Service[]>([])
   const [filter, setFilter] = useState('')
+  const { user } = useAuth()
 
   const [currentTab, setCurrentTab] = useState("Novo Atendimento")
 
@@ -49,14 +51,18 @@ export function Services() {
                 onInput={(e) => setFilter(e.target.value)}
               />
             </div>
-          <div className="w-1/4 pl-16">
-            <Link 
-              to={"novo-servico"}
-              className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg"
-            >
-              Novo
-            </Link>
-          </div>
+            {
+              user?.role == 'admin' && (
+                <div className="w-1/4 pl-16">
+                  <Link 
+                  to={"novo-servico"}
+                  className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg"
+                >
+                  Novo
+                </Link>
+              </div>
+              )
+            }
         </div>
         <div className="grid grid-cols-2 gap-y-14 m-20 text-center">
           {
