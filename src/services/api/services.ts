@@ -10,5 +10,8 @@ export const servicesApi = {
       value,
       durationInMinutes
     })
+  },
+  async delete(id: string) {
+    return api.delete(`/services/${id}`)
   }
 }

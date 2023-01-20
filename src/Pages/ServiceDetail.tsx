@@ -2,6 +2,7 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar/Sidebar";
+import { servicesApi } from "../services/api/services";
 import { Service } from "./Services";
 
 export function ServiceDetail() {
@@ -10,6 +11,18 @@ export function ServiceDetail() {
   const navigate = useNavigate()
   
   function handleGoBack() {
+    navigate(-1)
+  }
+
+  async function handleDelete() {
+    const res = await servicesApi.delete(service.id)
+
+    if(res.status !== 204) {
+      alert('Houve um problema durante a remoção no serviço')
+      return
+    }
+    
+    alert('Serviço deletado com sucesso')
     navigate(-1)
   }
 
@@ -47,7 +60,12 @@ export function ServiceDetail() {
         </div>
         <div className="flex justify-center gap-2 grid-cols-2">
           <button className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg">Editar</button>
-          <button className="block w-24 h-10 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg">Excluir</button>
+          <button 
+            onClick={handleDelete}
+            className="block w-24 h-10 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg"
+          >
+            Excluir
+          </button>
         </div>
       </div>
     </div>
