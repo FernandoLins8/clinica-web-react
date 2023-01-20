@@ -4,16 +4,17 @@ import { SidebarItem } from "./components/SidebarItem";
 import { useState } from "react";
 
 interface Props {
-  onTabClick: (tabTitle: string) => void
+  onTabClick?: (tabTitle: string) => void
+  activeSidebarItem: string
 }
 
-export function Sidebar({ onTabClick }: Props) {
+export function Sidebar({ onTabClick, activeSidebarItem }: Props) {
   const { user, logout } = useAuth()
-  const [activeTab, setActiveTab] = useState(user!.role == 'admin' ? 'Atendimentos' : 'Novo Atendimento')
+  const defaultSidebarItem = user!.role == 'admin' ? 'Atendimentos' : 'Novo Atendimento'
+  const [activeTab, setActiveTab] = useState(activeSidebarItem ? activeSidebarItem : defaultSidebarItem)
 
   function handleActiveTabChange(tabTitle: string) {
     setActiveTab(tabTitle)
-    onTabClick(tabTitle)
   }
   
   return (
@@ -41,7 +42,7 @@ export function Sidebar({ onTabClick }: Props) {
             user?.role == "admin" ? (
               <>
                 <SidebarItem href="#" title="Atendimentos" active={activeTab === "Atendimentos"} onClick={() => handleActiveTabChange("Atendimentos")} />
-                <SidebarItem href="#" title="Serviços" active={activeTab === "Serviços"} onClick={() => handleActiveTabChange("Serviços")} />
+                <SidebarItem href="/services" title="Serviços" active={activeTab === "Serviços"} onClick={() => handleActiveTabChange("Serviços")} />
                 <SidebarItem href="#" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => handleActiveTabChange("Profissionais")} />
                 <SidebarItem href="#" title="Clientes" active={activeTab === "Clientes"} onClick={() => handleActiveTabChange("Clientes")} />
               </>
