@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { servicesApi } from "../services/api/services";
 
 interface Service {
@@ -31,13 +32,18 @@ export function Services() {
             <input 
               className="bg-white focus:outline-none focus:shadow-outline-blue border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" 
               type="text" 
-              placeholder="Search services..."
+              placeholder="Procurar serviço"
               value={filter}
               onInput={(e) => setFilter(e.target.value)}
             />
           </div>
         <div className="w-1/4 pl-16">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">Novo</button>
+          <Link 
+            to={"novo-servico"}
+            className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg"
+          >
+            Novo
+          </Link>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-y-14 m-20 text-center">
@@ -48,7 +54,7 @@ export function Services() {
                 src={`
                   ${service.imagem ? service.imagem : "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}
                 `} 
-                alt={service.duration} 
+                alt={String(service.duration)}
                 className="w-full rounded-md"
               />
               <h2 className="text-lg font-medium mt-2">{service.name}</h2>
