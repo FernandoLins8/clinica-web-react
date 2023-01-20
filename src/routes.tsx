@@ -4,6 +4,7 @@ import { Admin } from './Pages/Admin'
 import { AuthTabs } from './Pages/AuthTabs'
 import { Home } from './Pages/Home'
 import { NewService } from './Pages/NewService'
+import { ServiceDetail } from './Pages/ServiceDetail'
 import { Services } from './Pages/Services'
 
 export function PublicRoutes() {
@@ -25,6 +26,7 @@ export function PrivateRoutes() {
         <Route path="/home" element={< Home/>} />
       }
       <Route path="services" element={< Services/>} />
+      <Route path="services/:id" element={< ServiceDetail/>} />
       <Route path="services/novo-servico" element={< NewService/>} />
     </Routes>
   )

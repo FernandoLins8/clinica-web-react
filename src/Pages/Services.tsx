@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { servicesApi } from "../services/api/services";
 
-interface Service {
+export interface Service {
   id: string
   name: string
   value: number
   duration: number
   imagem?: string
+  description?: string
 }
 
 export function Services() {
@@ -60,7 +61,11 @@ export function Services() {
         <div className="grid grid-cols-2 gap-y-14 m-20 text-center">
           {
             services.filter(service => service.name.toLowerCase().includes(filter.toLowerCase())).map(service => (
-              <div key={service.id} className="flex flex-col col-span-1 min-w-64 max-w-md mx-auto items-center brightness-75 hover:opacity-90 cursor-pointer">
+              <Link to={`${service.id}`}  
+              state={service}
+              key={service.id} 
+              className="flex flex-col col-span-1 min-w-64 max-w-md mx-auto items-center brightness-75 hover:opacity-90 cursor-pointer"
+              >
                 <img 
                   src={`
                     ${service.imagem ? service.imagem : "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}
@@ -69,7 +74,7 @@ export function Services() {
                   className="w-full rounded-md"
                 />
                 <h2 className="text-lg font-medium mt-2">{service.name}</h2>
-              </div>
+              </Link>
             ))
           }
         </div>
