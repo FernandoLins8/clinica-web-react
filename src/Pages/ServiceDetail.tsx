@@ -2,6 +2,7 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar/Sidebar";
+import { useAuth } from "../contexts/auth";
 import { servicesApi } from "../services/api/services";
 import { Service } from "./Services";
 
@@ -9,6 +10,7 @@ export function ServiceDetail() {
   const location = useLocation();
   const service: Service = location.state
   const navigate = useNavigate()
+  const { user } = useAuth()
   
   function handleGoBack() {
     navigate(-1)
@@ -58,15 +60,19 @@ export function ServiceDetail() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center gap-2 grid-cols-2">
-          <button className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg">Editar</button>
-          <button 
-            onClick={handleDelete}
-            className="block w-24 h-10 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg"
-          >
-            Excluir
-          </button>
-        </div>
+        {
+          user?.role == 'admin' && (
+            <div className="flex justify-center gap-2 grid-cols-2">
+              <button className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg">Editar</button>
+              <button 
+                onClick={handleDelete}
+                className="block w-24 h-10 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg"
+              >
+                Excluir
+              </button>
+            </div>
+          )
+        }
       </div>
     </div>
   )
