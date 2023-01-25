@@ -9,6 +9,7 @@ export interface Professional {
   name: string
   commission: number
   imageUrl?: string
+  description?: string
 }
 
 export function Professionals() {

@@ -4,6 +4,7 @@ import { Admin } from './Pages/Admin'
 import { AuthTabs } from './Pages/AuthTabs'
 import { Home } from './Pages/Home'
 import { NewService } from './Pages/NewService'
+import { ProfessionalDetail } from './Pages/ProfessionalDetail'
 import { Professionals } from './Pages/Professionals'
 import { ServiceDetail } from './Pages/ServiceDetail'
 import { Services } from './Pages/Services'
@@ -31,6 +32,7 @@ export function PrivateRoutes() {
       <Route path="services/novo-servico" element={< NewService/>} />
 
       <Route path="profissionais" element={< Professionals/>} />
+      <Route path="profissionais/:id" element={< ProfessionalDetail/>} />
     </Routes>
   )
 }
