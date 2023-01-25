@@ -43,7 +43,7 @@ export function Sidebar({ onTabClick, activeSidebarItem }: Props) {
               <>
                 <SidebarItem href="#" title="Atendimentos" active={activeTab === "Atendimentos"} onClick={() => handleActiveTabChange("Atendimentos")} />
                 <SidebarItem href="/services" title="Serviços" active={activeTab === "Serviços"} onClick={() => handleActiveTabChange("Serviços")} />
-                <SidebarItem href="#" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => handleActiveTabChange("Profissionais")} />
+                <SidebarItem href="/profissionais" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => handleActiveTabChange("Profissionais")} />
                 <SidebarItem href="#" title="Clientes" active={activeTab === "Clientes"} onClick={() => handleActiveTabChange("Clientes")} />
               </>
             ) : (
@@ -51,7 +51,7 @@ export function Sidebar({ onTabClick, activeSidebarItem }: Props) {
                 <SidebarItem href="#" title="Novo Atendimento" active={activeTab === "Novo Atendimento"} onClick={() => {handleActiveTabChange("Novo Atendimento")}} />
                 <SidebarItem href="#" title="Meus Atendimentos" active={activeTab === "Meus Atendimentos"} onClick={() => handleActiveTabChange("Meus Atendimentos")} />
                 <SidebarItem href="/services" title="Serviços" active={activeTab === "Serviços"} onClick={() => handleActiveTabChange("Serviços")} />
-                <SidebarItem href="#" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => handleActiveTabChange("Profissionais")} />
+                <SidebarItem href="/profissionais" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => handleActiveTabChange("Profissionais")} />
               </>
             )
           }
