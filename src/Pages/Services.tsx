@@ -9,7 +9,7 @@ export interface Service {
   name: string
   value: number
   duration: number
-  imagem?: string
+  imageUrl?: string
   description?: string
 }
 
@@ -74,7 +74,7 @@ export function Services() {
               >
                 <img 
                   src={`
-                    ${service.imagem ? service.imagem : "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}
+                    ${service.imageUrl ? service.imageUrl : "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}
                   `} 
                   alt={String(service.duration)}
                   className="w-full rounded-md"

@@ -44,7 +44,7 @@ export function ServiceDetail() {
             <div className="w-1/2">
               <img 
                 src={`
-                  ${service.imagem ? service.imagem : "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}
+                  ${service.imageUrl ? service.imageUrl : "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}
                 `} 
                 alt={String(service.duration)}
                 className="rounded-md"
@@ -56,7 +56,7 @@ export function ServiceDetail() {
                 <span>{`${service.duration} min`}</span>
                 <span>{`R$ ${service.value}`}</span>
               </div>
-              <p className="text-left text-lg">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt omnis doloremque, dicta quis quisquam ea minima earum fugit ad voluptatem inventore eaque nam vel dignissimos?</p>
+              <p className="text-left text-lg">{service.description}</p>
             </div>
           </div>
         </div>
