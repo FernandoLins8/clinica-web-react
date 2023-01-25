@@ -3,6 +3,7 @@ import { useAuth } from './contexts/auth'
 import { Admin } from './Pages/Admin'
 import { AuthTabs } from './Pages/AuthTabs'
 import { Home } from './Pages/Home'
+import { NewProfessional } from './Pages/NewProfessional'
 import { NewService } from './Pages/NewService'
 import { ProfessionalDetail } from './Pages/ProfessionalDetail'
 import { Professionals } from './Pages/Professionals'
@@ -33,6 +34,7 @@ export function PrivateRoutes() {
 
       <Route path="profissionais" element={< Professionals/>} />
       <Route path="profissionais/:id" element={< ProfessionalDetail/>} />
+      <Route path="profissionais/novo-profissional" element={< NewProfessional/>} />
     </Routes>
   )
 }
