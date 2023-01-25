@@ -4,11 +4,11 @@ export const servicesApi = {
   async index() {
     return api.get('/services')
   },
-  async create(name: string, value: number, durationInMinutes: number) {
-    return api.post('/services', {
-      name,
-      value,
-      durationInMinutes
+  async create(data: FormData) {
+    return api.post('/services', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     })
   },
   async delete(id: string) {

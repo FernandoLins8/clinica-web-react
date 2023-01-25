@@ -5,12 +5,21 @@ import { servicesApi } from "../services/api/services"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
+import { ChangeEvent, useState } from "react"
 
 export function NewService() {
+  const [image, setImage] = useState<File | null>()
   const navigate = useNavigate()
 
   function handleGoBack() {
     navigate(-1)
+  }
+
+  function handleSelectImages(e: ChangeEvent<HTMLInputElement>) {
+    if(!e.target.files) {
+      return
+    }
+    setImage(e.target.files[0])
   }
 
   return (
@@ -33,8 +42,20 @@ export function NewService() {
               cost: Yup.number().required('Valor é obrigatório'),
             })}
             onSubmit={async (values, { setSubmitting }) => {
-              const { name, minutes, cost } = values
-              const res = await servicesApi.create(name, minutes, cost)
+              const { name, minutes, cost, description } = values
+
+              const data = new FormData()
+
+              data.append('name', name)
+              data.append('description', description)
+              data.append('durationInMinutes', String(minutes))
+              data.append('value', String(cost))
+
+              if(image) {
+                data.append('image', image)
+              }
+              
+              const res = await servicesApi.create(data)
 
               if(res.status == 201) {
                 alert('Serviço criado com sucesso')
@@ -99,7 +120,9 @@ export function NewService() {
                 <input 
                   type="file"
                   id="image"
-                  className="bg-gray-200 border border-gray-200 rounded-lg py-2 px-4 block w-full leading-normal"  accept="image/*"
+                  className="bg-gray-200 border border-gray-200 rounded-lg py-2 px-4 block w-full leading-normal"
+                  accept=".png, .jpeg, .jpg"
+                  onChange={handleSelectImages}
                 />
               </div>
               <button 
