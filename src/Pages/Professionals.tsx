@@ -70,7 +70,7 @@ export function Professionals() {
                   ${professional.imageUrl ? professional.imageUrl : "https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}
                 `} 
                 alt={String(professional.name)}
-                className="w-full rounded-md"
+                className="w-full max-h-80 rounded-md"
               />
               <h2 className="text-lg font-medium mt-2">{professional.name}</h2>
             </Link>

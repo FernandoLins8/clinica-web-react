@@ -42,19 +42,18 @@ export function ProfessionalDetail() {
       <p className="text-lg text-center mb-8">Confira abaixo sobre o profissional <strong>{professional.name}</strong>.</p>
       <div className="grid-cols-2 gap-y-14 m-20 text-center">
         <div className="flex justify-between min-w-64 max-w-5xl mx-auto brightness-75">
-          <div className="w-1/2">
+          <div className="w-1/2 flex justify-center">
             <img 
               src={`
                 ${professional.imageUrl ? professional.imageUrl : "https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}
               `} 
               alt={String(professional.name)}
-              className="rounded-md"
+              className="rounded-md max-h-96"
             />
           </div>
           <div className="w-1/2 px-4 flex flex-col justify-between pb-8">
             <div className="flex flex-col justify-start items-start gap-2">
               <h2 className="block text-xl font-medium mt-2">{professional.name}</h2>
-              {/* <span>{`${professional.duration} min`}</span> */}
               <span>{`Comissão: ${professional.commission}`}%</span>
             </div>
             <p className="text-left text-lg">{professional.description}</p>
