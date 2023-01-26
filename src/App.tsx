@@ -1,10 +1,13 @@
+import { AppointmentProvider } from "./contexts/appointment"
 import { AuthProvider } from "./contexts/auth"
 import { Paths } from "./routes"
 
 function App() {
   return (
     <AuthProvider>
-      <Paths />
+      <AppointmentProvider>
+        <Paths />
+      </AppointmentProvider>
     </AuthProvider>
   )
 }

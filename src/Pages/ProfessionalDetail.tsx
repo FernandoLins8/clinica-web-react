@@ -2,6 +2,7 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation, useNavigate } from "react-router";
 import { Sidebar } from "../components/Sidebar/Sidebar";
+import { useAppointment } from "../contexts/appointment";
 import { useAuth } from "../contexts/auth";
 import { professionalsApi } from "../services/api/professionals";
 import { Professional } from "./Professionals";
@@ -11,6 +12,7 @@ export function ProfessionalDetail() {
   const professional: Professional = location.state
 
   const { user } = useAuth()
+  const { professional: appointmentProfessional, addProfessional, removeProfessional } = useAppointment()
   const navigate = useNavigate()
   
   function handleGoBack() {
@@ -27,6 +29,14 @@ export function ProfessionalDetail() {
     
     alert('Profissional deletado com sucesso')
     navigate(-1)
+  }
+
+  function handleAddToAppointment() {
+    addProfessional(professional)
+  }
+
+  function handleRemoveFromAppointment() {
+    removeProfessional()
   }
   
   return (
@@ -68,6 +78,30 @@ export function ProfessionalDetail() {
               className="block w-24 h-10 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg"
             >
               Excluir
+            </button>
+          </div>
+        )
+      }
+      {
+        (user?.role == 'user' && appointmentProfessional?.id !== professional.id) && (
+          <div className="flex justify-center gap-2 grid-cols-2">
+            <button 
+              onClick={handleAddToAppointment}
+              className="block h-10 p-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg"
+            >
+              Adicionar ao atendimento
+            </button>
+          </div>
+        )
+      }
+      {
+        (user?.role == 'user' && appointmentProfessional?.id === professional.id) && (
+          <div className="flex justify-center gap-2 grid-cols-2">
+            <button 
+              onClick={handleRemoveFromAppointment}
+              className="block h-10 p-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg"
+            >
+              Remover do atendimento
             </button>
           </div>
         )

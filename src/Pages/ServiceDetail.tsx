@@ -2,6 +2,7 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar/Sidebar";
+import { useAppointment } from "../contexts/appointment";
 import { useAuth } from "../contexts/auth";
 import { servicesApi } from "../services/api/services";
 import { Service } from "./Services";
@@ -11,6 +12,7 @@ export function ServiceDetail() {
   const service: Service = location.state
   const navigate = useNavigate()
   const { user } = useAuth()
+  const { addService, removeService, wasServiceAlreadyAdded } = useAppointment()
   
   function handleGoBack() {
     navigate(-1)
@@ -26,6 +28,14 @@ export function ServiceDetail() {
     
     alert('Serviço deletado com sucesso')
     navigate(-1)
+  }
+
+  function handleAddToAppointment() {
+    addService(service)
+  }
+
+  function handleRemoveFromAppointment() {
+    removeService(service.id)
   }
 
   return (
@@ -63,12 +73,35 @@ export function ServiceDetail() {
         {
           user?.role == 'admin' && (
             <div className="flex justify-center gap-2 grid-cols-2">
-              {/* <button className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg">Editar</button> */}
               <button 
                 onClick={handleDelete}
                 className="block w-24 h-10 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg"
               >
                 Excluir
+              </button>
+            </div>
+          )
+        }
+        {
+          (user?.role == 'user' && !wasServiceAlreadyAdded(service.id)) && (
+            <div className="flex justify-center gap-2 grid-cols-2">
+              <button 
+                onClick={handleAddToAppointment}
+                className="block h-10 p-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg"
+              >
+                Adicionar ao atendimento
+              </button>
+            </div>
+          )
+        }
+        {
+          (user?.role == 'user' && wasServiceAlreadyAdded(service.id)) && (
+            <div className="flex justify-center gap-2 grid-cols-2">
+              <button 
+                onClick={handleRemoveFromAppointment}
+                className="block h-10 p-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg"
+              >
+                Remover do atendimento
               </button>
             </div>
           )
