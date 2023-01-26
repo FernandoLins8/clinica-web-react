@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { useAuth } from './contexts/auth'
 import { Admin } from './Pages/Admin'
 import { AuthTabs } from './Pages/AuthTabs'
+import { ClientAppointments } from './Pages/ClientAppointments'
 import { NewAppointment } from './Pages/NewAppointment'
 import { NewProfessional } from './Pages/NewProfessional'
 import { NewService } from './Pages/NewService'
@@ -34,6 +35,9 @@ export function PrivateRoutes() {
         ) : (
           <>
             <Route path="novo-atendimento" element={<NewAppointment />} />
+
+            <Route path="meus-atendimentos" element={<ClientAppointments />} />
+            <Route path="meus-atendimentos/:id" element={<ClientAppointments />} />
           </>
         )
       }
