@@ -40,7 +40,9 @@ export function Services() {
       </div>
       <div className="py-16 col-span-10">
         <h1 className="text-2xl font-medium uppercase text-center mb-4">Serviços</h1>
-        <p className="text-lg text-center mb-8">Confira abaixo os serviços que oferecemos.</p>
+        <p className="text-lg text-center mb-8">
+          Confira abaixo os serviços que oferecemos (para mais detalhes clique na imagem).
+        </p>
         <div className="flex items-center justify-center mt-4">
             <div className="w-1/4">
               <input 

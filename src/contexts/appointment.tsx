@@ -9,7 +9,8 @@ interface AuthContextValue {
   wasServiceAlreadyAdded: (serviceId: string) => boolean
   removeService: (serviceId: string) => void
   addProfessional: (professional: Professional) => void
-  removeProfessional: () => void
+  removeProfessional: () => void,
+  resetAppointment: () => void
 }
 
 const AppointmentContext = createContext<AuthContextValue>({
@@ -20,6 +21,7 @@ const AppointmentContext = createContext<AuthContextValue>({
   wasServiceAlreadyAdded: () => false,
   addProfessional: () => {},
   removeProfessional: () => {},
+  resetAppointment: () => {}
 })
 
 interface Props {
@@ -53,9 +55,14 @@ export function AppointmentProvider({children}: Props) {
     setProfessional(null)
   }
 
+  function resetAppointment() {
+    setServices([])
+    setProfessional(null)
+  }
+
   return (
     <AppointmentContext.Provider 
-      value={{ services, professional, addService, removeService, wasServiceAlreadyAdded,  addProfessional, removeProfessional }}
+      value={{ services, professional, addService, removeService, wasServiceAlreadyAdded,  addProfessional, removeProfessional, resetAppointment }}
     >
       {children}
     </AppointmentContext.Provider>
