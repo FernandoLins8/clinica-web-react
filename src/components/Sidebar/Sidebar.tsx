@@ -41,7 +41,7 @@ export function Sidebar({ onTabClick, activeSidebarItem }: Props) {
           {
             user?.role == "admin" ? (
               <>
-                <SidebarItem href="#" title="Atendimentos" active={activeTab === "Atendimentos"} onClick={() => handleActiveTabChange("Atendimentos")} />
+                <SidebarItem href="/admin" title="Atendimentos" active={activeTab === "Atendimentos"} onClick={() => handleActiveTabChange("Atendimentos")} />
                 <SidebarItem href="/services" title="Serviços" active={activeTab === "Serviços"} onClick={() => handleActiveTabChange("Serviços")} />
                 <SidebarItem href="/profissionais" title="Profissionais" active={activeTab === "Profissionais"} onClick={() => handleActiveTabChange("Profissionais")} />
                 <SidebarItem href="#" title="Clientes" active={activeTab === "Clientes"} onClick={() => handleActiveTabChange("Clientes")} />

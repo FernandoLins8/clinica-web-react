@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { useAuth } from './contexts/auth'
-import { Admin } from './Pages/Admin'
+import { AdminAppointments } from './Pages/AdminAppointments'
 import { AuthTabs } from './Pages/AuthTabs'
 import { ClientAppointments } from './Pages/ClientAppointments'
 import { NewAppointment } from './Pages/NewAppointment'
@@ -28,7 +28,7 @@ export function PrivateRoutes() {
         user?.role == 'admin' ? 
         (
           <>
-            <Route path="/admin" element={< Admin/>} />
+            <Route path="/admin" element={< AdminAppointments/>} />
             <Route path="profissionais/novo-profissional" element={< NewProfessional/>} />
             <Route path="services/novo-servico" element={< NewService/>} />
           </>
