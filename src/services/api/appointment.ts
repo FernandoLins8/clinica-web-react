@@ -14,5 +14,8 @@ export const appointmentApi = {
   },
   async findAllFromUser() {
     return api.get('/appointments/client')
+  },
+  async get(id: string) {
+    return api.get(`/appointments/${id}`)
   }
 }

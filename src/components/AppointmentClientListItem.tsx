@@ -1,4 +1,5 @@
 import * as Separator from '@radix-ui/react-separator';
+import { Link } from 'react-router-dom';
 import { ClientAppointment } from '../Pages/ClientAppointments';
 import { getFormatedDateTime } from "../utils/getFormatedDateTime"
 
@@ -14,11 +15,13 @@ export function AppointmentClientListItem({ appointment }: Props) {
         <span>Profissional: {appointment.professional.name}</span>
         <span>Iniciado: {appointment?.startTime ? getFormatedDateTime(appointment.startTime) : 'Não iniciado'}</span>
         <span>Finalizado: {appointment?.endTime ? getFormatedDateTime(appointment?.endTime) : 'Não finalizado'}</span>
-        <button 
+        <Link 
+          to={`${appointment.id}`}
+          state={appointment}
           className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg"
         >
           Detalhes
-        </button>
+        </Link>
       </div>
       <Separator.Root className="h-[1px] w-full bg-slate-400 my-8" />
     </>
