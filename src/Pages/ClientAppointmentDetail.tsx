@@ -20,6 +20,18 @@ export interface AppointmentDetail {
     expectedDurationInMinutes: number
     appointmentDurationInMinutes: number | null
   }
+  professional: {
+    name: string
+    commission: number
+  }
+  services: [
+    {
+      name: string
+      value: number
+      duration: number
+    }
+  ]
+  attendeeId: string
 }
 
 export function ClientAppointmentDetail() {
@@ -105,6 +117,35 @@ export function ClientAppointmentDetail() {
           </div>
         </section>
         <Separator.Root className="h-[1px] w-full bg-slate-400 my-8" />
+        <section className="flex justify-center">
+          <div className="w-80 gap-y-8 mx-20 mt-16 text-center">
+            <h2 className="text-2xl text-left mb-4">Serviços</h2>
+              {
+                appointment?.services.map(service => (
+                  <div className="flex justify-between border-b border-black mb-4">
+                    <span>{service.name}</span>
+                    <span>{service.duration} min</span>
+                    <span>R$ {service.value}</span>
+                  </div>
+                ))
+              }
+          </div>
+          <div className="w-80 gap-y-8 mx-20 mt-16 text-center">
+            <h2 className="text-2xl text-left mb-4">Funcionários</h2>
+            <div className="flex justify-between border-b border-black mb-4">
+              <span>Profissional Responsável</span>
+              <span>{appointment?.professional.name}</span>
+            </div>
+            <div className="flex justify-between border-b border-black mb-4">
+              <span>Taxa do Profissional</span>
+              <span>{appointment?.professional.commission}</span>
+            </div>
+            <div className="border-b border-black mb-4">
+              <span>Atendente: </span>
+              <span>{appointment?.attendeeId}</span>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   )
