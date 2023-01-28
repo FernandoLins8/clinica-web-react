@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { appointmentApi } from "../services/api/appointment";
 import { ClientAppointment } from "./ClientAppointments";
 import { getFormatedDateTime } from "../utils/getFormatedDateTime";
+import { getFormatedMinutes } from "../utils/getFormattedMinutes";
 
 export interface AppointmentDetail {
   id: string
@@ -103,14 +104,14 @@ export function ClientAppointmentDetail() {
             <div className="flex justify-between border-b border-black mb-4">
               <span>Tempo Previsto</span>
               <span>
-                { appointment ? `${appointment.summary.expectedDurationInMinutes} min ` : '' }
+                { appointment ? `${getFormatedMinutes(appointment.summary.expectedDurationInMinutes)}` : '' }
               </span>
             </div>
             <div className="flex justify-between border-b border-black mb-4">
               <span><strong>Tempo Decorrido</strong></span>
               <span>
                 <strong>
-                  { appointment?.summary.appointmentDurationInMinutes ? `${appointment.summary.appointmentDurationInMinutes} min ` : '' }
+                  { appointment?.summary.appointmentDurationInMinutes ? `${getFormatedMinutes(appointment.summary.appointmentDurationInMinutes)}` : '' }
                 </strong>
               </span>
             </div>
