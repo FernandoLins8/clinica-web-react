@@ -1,4 +1,4 @@
-export function getFormatedDateTime(date: string) {
+export function getFormatedDateTime(date: string | Date) {
   const parsedDate = new Date(date)
 
   const day = String(parsedDate.getDate()).padStart(2, '0');
@@ -7,6 +7,6 @@ export function getFormatedDateTime(date: string) {
   const hour = String(parsedDate.getHours()).padStart(2, "0");
   const minute = String(parsedDate.getMinutes()).padStart(2, "0");
 
-  const formattedDateTime = `${day}/${month}/${year} ${hour}:${minute}`;
+  const formattedDateTime = `${day}/${month}/${year} - ${hour}:${minute}`;
   return formattedDateTime
 }
