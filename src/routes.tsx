@@ -1,6 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 import { useAuth } from './contexts/auth'
 import { AdminAppointments } from './Pages/AdminAppointments'
+import { AppointmentsFinished } from './Pages/AppointmentsFinished'
+import { AppointmentsInProgress } from './Pages/AppointmentsInProgress'
+import { AppointmentsNotStarted } from './Pages/AppointmentsNotStarted'
 import { AuthTabs } from './Pages/AuthTabs'
 import { ClientAppointmentDetail } from './Pages/ClientAppointmentDetail'
 import { ClientAppointments } from './Pages/ClientAppointments'
@@ -31,6 +34,13 @@ export function PrivateRoutes() {
           <>
             <Route path="atendimentos" element={< AdminAppointments/>} />
             <Route path="atendimentos/:id" element={<ClientAppointmentDetail />} />
+            <Route path="atendimentos/nao-iniciados" element={<AppointmentsNotStarted />} />
+            <Route path="atendimentos/em-andamento" element={<AppointmentsInProgress />} />
+            <Route path="atendimentos/finalizados" element={<AppointmentsFinished />} />
+
+            <Route path="atendimentos/nao-iniciados/:id" element={<ClientAppointmentDetail />} />
+            <Route path="atendimentos/em-andamento:id" element={<ClientAppointmentDetail />} />
+            <Route path="atendimentos/finalizados/:id" element={<ClientAppointmentDetail />} />
 
             <Route path="profissionais/novo-profissional" element={< NewProfessional/>} />
             <Route path="services/novo-servico" element={< NewService/>} />
