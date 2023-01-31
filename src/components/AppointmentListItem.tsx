@@ -13,7 +13,7 @@ export function AppointmentListItem({ appointment }: Props) {
   
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center" key={appointment.id}>
         <span>Criado: {getFormatedDateTime(String(appointment.createdAt))}</span>
         {
           user?.role == 'admin' ?

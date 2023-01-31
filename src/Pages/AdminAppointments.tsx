@@ -51,7 +51,6 @@ export function AdminAppointments() {
             inProgressAppointments.length != 0 ? (
               inProgressAppointments.map(appointment => (
                 <AppointmentListItem 
-                  key={appointment.id}
                   appointment={appointment}
                 />
               ))
@@ -68,7 +67,6 @@ export function AdminAppointments() {
             notStartedAppointments.length != 0 ? (
               notStartedAppointments.map(appointment => (
                 <AppointmentListItem 
-                  key={appointment.id}
                   appointment={appointment}
                 />
               ))
@@ -85,7 +83,6 @@ export function AdminAppointments() {
             finishedAppointments.length != 0 ? (
               finishedAppointments.map(appointment => (
                 <AppointmentListItem 
-                  key={appointment.id}
                   appointment={appointment}
                 />
               ))

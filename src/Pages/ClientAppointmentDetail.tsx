@@ -8,6 +8,7 @@ import { appointmentApi } from "../services/api/appointment";
 import { getFormatedDateTime } from "../utils/getFormatedDateTime";
 import { getFormatedMinutes } from "../utils/getFormattedMinutes";
 import { Appointment } from "./AdminAppointments";
+import { useAuth } from "../contexts/auth";
 
 export interface AppointmentDetail {
   id: string
@@ -38,9 +39,10 @@ export interface AppointmentDetail {
 export function ClientAppointmentDetail() {
   const [appointment, setAppointment] = useState<AppointmentDetail | null>(null)
 
+  const { user } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
-  const { id: appointmentId }: Appointment = location.state
+  const { id: appointmentId, client }: Appointment = location.state
 
   useEffect(() => {
     getAppointmentDetail()
@@ -49,6 +51,39 @@ export function ClientAppointmentDetail() {
   async function getAppointmentDetail() {
     const appointmentDetails = await appointmentApi.get(appointmentId)
     setAppointment(appointmentDetails.data)
+  }
+
+  async function handleUpdateAppointmentStatus() {
+    if(!appointment) {
+      return
+    }
+    
+    if(!appointment.startTime) {
+      appointmentApi.startAppointment(appointment.id)
+    }
+    else if(appointment.startTime && !appointment.endTime) {
+      appointmentApi.endAppointment(appointment.id)
+    }
+
+    setAppointment(null)
+    alert('Atendimento atualizado com sucesso!')
+    getAppointmentDetail()
+  }
+
+  async function handleDeleteAppointment() {
+    if(!appointment) {
+      return
+    }
+    
+    const res = await appointmentApi.delete(appointment.id)
+
+    if(res.status !== 200) {
+      alert('Houve um problema durante a remoção do Atendimento')
+      return
+    }
+    
+    alert('Atendimento deletado com sucesso')
+    navigate(-1)
   }
 
   function handleGoBack() {
@@ -65,6 +100,7 @@ export function ClientAppointmentDetail() {
           <FontAwesomeIcon icon={faArrowLeftLong} />
         </button>
         <h1 className="text-2xl font-medium uppercase text-center mb-4">Detalhes do Atendimento</h1>
+        <p className="text-lg text-center mb-8">Atendimento solicitado por <strong>{client.name}</strong></p>
         <section className="flex justify-center">
           <div className="w-80 gap-y-8 mx-20 mt-16 text-center">
             <h2 className="text-2xl text-left mb-4">Valores</h2>
@@ -123,7 +159,7 @@ export function ClientAppointmentDetail() {
             <h2 className="text-2xl text-left mb-4">Serviços</h2>
               {
                 appointment?.services.map(service => (
-                  <div className="flex justify-between border-b border-black mb-4">
+                  <div className="flex justify-between border-b border-black mb-4" key={service.name}>
                     <span>{service.name}</span>
                     <span>{service.duration} min</span>
                     <span>R$ {service.value}</span>
@@ -147,6 +183,34 @@ export function ClientAppointmentDetail() {
             </div>
           </div>
         </section>
+        <div className="flex items-center justify-center mt-4">
+          {
+            user?.role == 'admin' && (
+              <>
+                {
+                  !appointment?.endTime && (
+                    <div className="mx-4">
+                      <button 
+                        onClick={handleUpdateAppointmentStatus}
+                        className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg"
+                      >
+                        { appointment?.startTime ? 'Finalizar' : 'Iniciar' }
+                      </button>
+                    </div>
+                  )
+                }
+                <div className="mx-4">
+                  <button 
+                    onClick={handleDeleteAppointment}
+                    className="block w-24 h-10 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg"
+                >
+                  Excluir
+                </button>
+              </div>
+              </>
+            )
+          }
+        </div>
       </div>
     </div>
   )
