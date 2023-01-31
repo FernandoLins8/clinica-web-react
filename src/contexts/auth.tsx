@@ -38,7 +38,7 @@ export const AuthProvider = function({children}: Props) {
       return
     }
     if(user.role == 'admin') {
-      navigate('admin')
+      navigate('atendimentos')
     } else {
       navigate('novo-atendimento')
     }

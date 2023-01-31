@@ -29,7 +29,7 @@ export function PrivateRoutes() {
         user?.role == 'admin' ? 
         (
           <>
-            <Route path="/admin" element={< AdminAppointments/>} />
+            <Route path="/atendimentos" element={< AdminAppointments/>} />
             <Route path="profissionais/novo-profissional" element={< NewProfessional/>} />
             <Route path="services/novo-servico" element={< NewService/>} />
           </>
