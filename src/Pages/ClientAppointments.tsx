@@ -1,24 +1,11 @@
 import { useEffect, useState } from "react";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { appointmentApi } from "../services/api/appointment";
-import { AppointmentClientListItem } from "../components/AppointmentClientListItem";
-
-export interface ClientAppointment {
-  id: string
-  clientId: string
-  professionalId: string
-  attendeeId?: string
-  startTime?: string
-  endTime?: string
-  createdAt: Date
-  updatedAt: Date
-  professional: {
-    name: string
-  }
-}
+import { Appointment } from "./AdminAppointments";
+import { AppointmentListItem } from "../components/AppointmentListItem";
 
 export function ClientAppointments() {
-  const [appointments, setAppointments] = useState<ClientAppointment[]>([])
+  const [appointments, setAppointments] = useState<Appointment[]>([])
 
   const notStartedAppointments = appointments?.filter(appointment => appointment.startTime == null)
   const inProgressAppointments = appointments?.filter(appointment => appointment.startTime && appointment.endTime == null)
@@ -47,7 +34,7 @@ export function ClientAppointments() {
           {
             inProgressAppointments.length != 0 ? (
               inProgressAppointments.map(appointment => (
-                <AppointmentClientListItem 
+                <AppointmentListItem 
                   key={appointment.id}
                   appointment={appointment}
                 />
@@ -64,7 +51,7 @@ export function ClientAppointments() {
           {
             notStartedAppointments.length != 0 ? (
               notStartedAppointments.map(appointment => (
-                <AppointmentClientListItem 
+                <AppointmentListItem 
                   key={appointment.id}
                   appointment={appointment}
                 />
@@ -81,7 +68,7 @@ export function ClientAppointments() {
           {
             finishedAppointments.length != 0 ? (
               finishedAppointments.map(appointment => (
-                <AppointmentClientListItem 
+                <AppointmentListItem 
                   key={appointment.id}
                   appointment={appointment}
                 />

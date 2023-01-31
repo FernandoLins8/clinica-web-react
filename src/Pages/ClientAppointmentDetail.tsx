@@ -5,9 +5,9 @@ import { Sidebar } from "../components/Sidebar/Sidebar";
 import * as Separator from '@radix-ui/react-separator';
 import { useEffect, useState } from "react";
 import { appointmentApi } from "../services/api/appointment";
-import { ClientAppointment } from "./ClientAppointments";
 import { getFormatedDateTime } from "../utils/getFormatedDateTime";
 import { getFormatedMinutes } from "../utils/getFormattedMinutes";
+import { Appointment } from "./AdminAppointments";
 
 export interface AppointmentDetail {
   id: string
@@ -40,7 +40,7 @@ export function ClientAppointmentDetail() {
 
   const navigate = useNavigate()
   const location = useLocation()
-  const { id: appointmentId }: ClientAppointment = location.state
+  const { id: appointmentId }: Appointment = location.state
 
   useEffect(() => {
     getAppointmentDetail()

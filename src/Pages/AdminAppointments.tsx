@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
+import { AppointmentListItem } from "../components/AppointmentListItem";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { appointmentApi } from "../services/api/appointment";
-import { getFormatedDateTime } from "../utils/getFormatedDateTime";
-import * as Separator from '@radix-ui/react-separator';
 
-interface AdminAppointment {
+export interface Appointment {
   id: string
   clientId: string
   professionalId: string
@@ -16,22 +15,28 @@ interface AdminAppointment {
   client: {
     name: string
   }
+  professional: {
+    name: string
+  }
 }
 
 export function AdminAppointments() {
-  const [appointments, setAppointments] = useState<AdminAppointment[]>()
+  const [appointments, setAppointments] = useState<Appointment[]>([])
+
+  const notStartedAppointments = appointments?.filter(appointment => appointment.startTime == null).slice(0, 3)
+  const inProgressAppointments = appointments?.filter(appointment => appointment.startTime && appointment.endTime == null).slice(0, 3)
+  const finishedAppointments = appointments?.filter(appointment => appointment.endTime != null).slice(0, 3)
 
   useEffect(() => {
     getAppointments()
   }, [])
-  
+
   async function getAppointments() {
     const appointmentsRes = await appointmentApi.findAll()
     setAppointments(appointmentsRes.data)
   }
   
   return (
-    <>
     <div className="grid grid-cols-12">
       <div className="col-span-2 min-h-screen h-full">
         <Sidebar activeSidebarItem="Atendimentos" />
@@ -39,28 +44,58 @@ export function AdminAppointments() {
       <div className="py-16 col-span-10">
         <h1 className="text-2xl font-medium uppercase text-center mb-4">Atendimentos</h1>
         <p className="text-lg text-center mb-8">Histórico de atendimentos.</p>
-        <div className="grid grid-cols-2 gap-y-14 m-20 text-center">
+        <section className="grid grid-cols-2 gap-y-8 m-20 text-center">
+          <h2 className="text-2xl text-left">Em Andamento</h2>
+          <div className="col-span-2 px-8">
           {
-            appointments?.map(appointment => (
-              <div key={appointment.id} className="col-span-2 px-8">
-                <div className="flex justify-between items-center">
-                  <span>Cliente: {appointment.client.name}</span>
-                  <span>Criado: {getFormatedDateTime(String(appointment.createdAt))}</span>
-                  <span>Iniciado: {appointment?.startTime ? getFormatedDateTime(appointment.startTime) : 'Não iniciado'}</span>
-                  <span>Finalizado: {appointment?.endTime ? getFormatedDateTime(appointment?.endTime) : 'Não finalizado'}</span>
-                  <button 
-                    className="block w-24 h-10 py-2 text-center bg-indigo-400 hover:bg-indigo-500 text-white font-medium rounded-lg"
-                  >
-                    Detalhes
-                  </button>
-                </div>
-                <Separator.Root className="h-[1px] w-full bg-slate-400 my-4" />
-              </div>
-            ))            
-          }          
-        </div>
+            inProgressAppointments.length != 0 ? (
+              inProgressAppointments.map(appointment => (
+                <AppointmentListItem 
+                  key={appointment.id}
+                  appointment={appointment}
+                />
+              ))
+            )
+              :
+            <span>Nenhum atendimento em andamento.</span>
+          }
+          </div>
+        </section>
+        <section className="grid grid-cols-2 gap-y-8 m-20 text-center">
+          <h2 className="text-2xl text-left">Não Iniciados</h2>
+          <div className="col-span-2 px-8">
+          {
+            notStartedAppointments.length != 0 ? (
+              notStartedAppointments.map(appointment => (
+                <AppointmentListItem 
+                  key={appointment.id}
+                  appointment={appointment}
+                />
+              ))
+            )
+              :
+            <span>Nenhum atendimento em andamento.</span>
+          }
+          </div>
+        </section>
+        <section className="grid grid-cols-2 gap-y-8 m-20 text-center">
+          <h2 className="text-2xl text-left">Finalizados</h2>
+          <div className="col-span-2 px-8">
+          {
+            finishedAppointments.length != 0 ? (
+              finishedAppointments.map(appointment => (
+                <AppointmentListItem 
+                  key={appointment.id}
+                  appointment={appointment}
+                />
+              ))
+            )
+              :
+            <span>Nenhum atendimento em andamento.</span>
+          }
+          </div>
+        </section>
       </div>
     </div>
-    </>
   )
 }
