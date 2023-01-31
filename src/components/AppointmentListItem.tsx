@@ -1,18 +1,25 @@
 import * as Separator from '@radix-ui/react-separator';
 import { Link } from 'react-router-dom';
-import { ClientAppointment } from '../Pages/ClientAppointments';
+import { useAuth } from '../contexts/auth';
+import { Appointment } from '../Pages/AdminAppointments';
 import { getFormatedDateTime } from "../utils/getFormatedDateTime"
 
 interface Props {
-  appointment: ClientAppointment
+  appointment: Appointment
 }
 
-export function AppointmentClientListItem({ appointment }: Props) {
+export function AppointmentListItem({ appointment }: Props) {
+  const { user } = useAuth()
+  
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center" key={appointment.id}>
         <span>Criado: {getFormatedDateTime(String(appointment.createdAt))}</span>
-        <span>Profissional: {appointment.professional.name}</span>
+        {
+          user?.role == 'admin' ?
+            <span>Cliente: {appointment.client.name}</span> 
+            : <span>Profissional: {appointment.professional.name}</span>
+        }
         <span>Iniciado: {appointment?.startTime ? getFormatedDateTime(appointment.startTime) : 'Não iniciado'}</span>
         <span>Finalizado: {appointment?.endTime ? getFormatedDateTime(appointment?.endTime) : 'Não finalizado'}</span>
         <Link 
