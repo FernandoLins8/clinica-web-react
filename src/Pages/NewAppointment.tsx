@@ -48,7 +48,13 @@ export function NewAppointment() {
               { 
                 professional && (
                   <div className="relative mr-10 text-center" key={professional.id}>
-                    <img src={professional.imageUrl} className="w-40 h-w-40 rounded" alt={professional.name}/>
+                    <img src={
+                        professional.imageUrl ? professional.imageUrl 
+                        : "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                      }
+                      className="w-40 h-w-40 rounded"
+                      alt={professional.name}
+                    />
                     <span className="text-lg">{professional.name}</span>
                     <button 
                       className="absolute top-0 right-0 p-2 text-white bg-red-500 hover:bg-red-600"
@@ -74,7 +80,14 @@ export function NewAppointment() {
               {
                 services.map(service => (
                   <div className="relative mr-10 text-center" key={service.id}>
-                    <img src={service.imageUrl} className="w-40 h-w-40 rounded" alt={service.name}/>
+                    <img 
+                      src={
+                        service.imageUrl ? service.imageUrl
+                        : "https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                      } 
+                      className="w-40 h-w-40 rounded" 
+                      alt={service.name}
+                    />
                     <span className="text-lg">{service.name}</span>
                     <button 
                       className="absolute top-0 right-0 p-2 text-white bg-red-500 hover:bg-red-600"
