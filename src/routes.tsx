@@ -5,7 +5,7 @@ import { AppointmentsFinished } from './Pages/AppointmentsFinished'
 import { AppointmentsInProgress } from './Pages/AppointmentsInProgress'
 import { AppointmentsNotStarted } from './Pages/AppointmentsNotStarted'
 import { AuthTabs } from './Pages/AuthTabs'
-import { ClientAppointmentDetail } from './Pages/ClientAppointmentDetail'
+import { AppointmentDetail } from './Pages/AppointmentDetail'
 import { ClientAppointments } from './Pages/ClientAppointments'
 import { NewAppointment } from './Pages/NewAppointment'
 import { NewProfessional } from './Pages/NewProfessional'
@@ -33,14 +33,14 @@ export function PrivateRoutes() {
         (
           <>
             <Route path="atendimentos" element={< AdminAppointments/>} />
-            <Route path="atendimentos/:id" element={<ClientAppointmentDetail />} />
+            <Route path="atendimentos/:id" element={<AppointmentDetail />} />
             <Route path="atendimentos/nao-iniciados" element={<AppointmentsNotStarted />} />
             <Route path="atendimentos/em-andamento" element={<AppointmentsInProgress />} />
             <Route path="atendimentos/finalizados" element={<AppointmentsFinished />} />
 
-            <Route path="atendimentos/nao-iniciados/:id" element={<ClientAppointmentDetail />} />
-            <Route path="atendimentos/em-andamento:id" element={<ClientAppointmentDetail />} />
-            <Route path="atendimentos/finalizados/:id" element={<ClientAppointmentDetail />} />
+            <Route path="atendimentos/nao-iniciados/:id" element={<AppointmentDetail />} />
+            <Route path="atendimentos/em-andamento:id" element={<AppointmentDetail />} />
+            <Route path="atendimentos/finalizados/:id" element={<AppointmentDetail />} />
 
             <Route path="profissionais/novo-profissional" element={< NewProfessional/>} />
             <Route path="services/novo-servico" element={< NewService/>} />
@@ -50,7 +50,7 @@ export function PrivateRoutes() {
             <Route path="novo-atendimento" element={<NewAppointment />} />
 
             <Route path="meus-atendimentos" element={<ClientAppointments />} />
-            <Route path="meus-atendimentos/:id" element={<ClientAppointmentDetail />} />
+            <Route path="meus-atendimentos/:id" element={<AppointmentDetail />} />
           </>
         )
       }

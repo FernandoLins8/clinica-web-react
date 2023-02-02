@@ -36,7 +36,7 @@ export interface AppointmentDetail {
   attendeeId: string
 }
 
-export function ClientAppointmentDetail() {
+export function AppointmentDetail() {
   const [appointment, setAppointment] = useState<AppointmentDetail | null>(null)
 
   const { user } = useAuth()
