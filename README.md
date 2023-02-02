@@ -18,7 +18,6 @@ Frontend para a api rest [clinica-server-nestjs](https://github.com/FernandoLins
 
 - React state, components, etc;
 - Consumo de APIs;
-- CSS;
 - Context API, rotas e autenticação;
 - Git flow e documentação de commits.
 
