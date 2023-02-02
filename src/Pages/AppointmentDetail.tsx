@@ -93,7 +93,7 @@ export function AppointmentDetail() {
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-2 min-h-screen h-full">
-        <Sidebar activeSidebarItem="Meus Atendimentos" />
+      <Sidebar activeSidebarItem={ user?.role == 'admin' ? 'Atendimentos' : 'Meus Atendimentos'} />
       </div>
       <div className="relative col-span-10 px-8 py-16">
         <button onClick={handleGoBack} className="absolute cursor-pointer">
